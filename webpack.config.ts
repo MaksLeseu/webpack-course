@@ -1,8 +1,15 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import path from 'path'
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-module.exports = (env) => {
-    return {
+type ModeType = 'development' | 'production'
+
+type EnvVariables = {
+    mode: ModeType
+}
+
+module.exports = (env: EnvVariables) => {
+    const config: webpack.Configuration = {
         mode: env.mode ?? 'development',            // This code allows to use to scripts for dev and prod development
         entry: path.resolve(__dirname, 'src', 'index.ts'),
         module: {
@@ -26,4 +33,5 @@ module.exports = (env) => {
             new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') })  // This is a plugin to allow me to insert js file to the index.html file
         ],
     }
+    return config
 };
